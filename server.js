@@ -10,7 +10,8 @@ const MessagesManager = require('./modules/MessagesManager.js');
 const Logger          = require('./modules/Logger.js');
 const MotdManager     = require('./modules/MotdManager.js');
 const SocketManager   = require('./modules/SocketManager.js');
-const TaskManager   = require('./modules/TaskManager.js');
+const TaskManager     = require('./modules/TaskManager.js');
+const TaskScheduler   = require('./modules/TaskScheduler.js')
 const CommandHandler  = require('./modules/CommandHandler.js');
 const Actions         = require('./modules/Actions.js');
 
@@ -39,20 +40,10 @@ const motdManager = new MotdManager(config.motd);
 const messagesManager = new MessagesManager(LOCAL_DB_PATH);
 const socketManager = new SocketManager(io, logger);
 const taskManager = new TaskManager(logger);
+const taskScheduler = new TaskScheduler(logger);
 const commandHandler = new CommandHandler(logger);
 
 const actions = new Actions(logger, motdManager, messagesManager, socketManager, taskManager, server, config);
-
-
-/* ------------------- TaskManager Setup ------------------------*/
-
-
-// Delete old messages task
-taskManager.addOrUpdateTask("deleteOldMessages", 
-                              `*/${config.deleteOldMessagesTask.taskRate} * * * *`, 
-                              actions.deleteOldMessages.bind(actions), 
-                              [config.deleteOldMessagesTask.ageForDelete], 
-                              config.deleteOldMessagesTask.deleteOldMessages);
 
 
 /* ---------------------- App execution ---------------------------*/
@@ -61,6 +52,8 @@ taskManager.addOrUpdateTask("deleteOldMessages",
 socketManager.handleConnections(messagesManager, motdManager);
 
 commandHandler.handleCommands(actions);
+
+taskScheduler.scheduleTasks(taskManager, config.tasks, actions);
 
 // Serves files from public folder
 app.use('/', express.static(PUBLIC_FOLDER_PATH));

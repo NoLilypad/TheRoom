@@ -3,10 +3,11 @@ dbFilePath: 'db.json'
 publicFolderPath: 'public'
 motd: "This is a MOTD!"
 
-deleteOldMessagesTask:
-  deleteOldMessages: false # if enabled by default
-  ageForDelete: 3600 # 1 hour in seconds
-  taskRate: 1 # in minutes
+tasks:
+  deleteOldMessagesTask:
+    deleteOldMessages: false # if enabled by default
+    ageForDelete: 3600 # 1 hour in seconds
+    taskRate: 1 # in minutes
 
 
 
@@ -33,4 +34,5 @@ help:
          * help         : displays available commands \n
          * edomt        : enables delete old messages task \n
          * ddomt        : disables delete old message task \n
-         * dump         : dumps messages "
+         * dump         : dumps messages \n
+         * admin        : send admin message"
