@@ -10,7 +10,7 @@ const MessagesManager = require('./modules/MessagesManager.js');
 const Logger          = require('./modules/Logger.js');
 const MotdManager     = require('./modules/MotdManager.js');
 const SocketManager   = require('./modules/SocketManager.js');
-const TaskScheduler   = require('./modules/TaskScheduler.js');
+const TaskManager   = require('./modules/TaskManager.js');
 const CommandHandler  = require('./modules/CommandHandler.js');
 const Actions         = require('./modules/Actions.js');
 
@@ -38,17 +38,17 @@ const logger = new Logger(config.logger.prefixes, config.logger.logUserConnectio
 const motdManager = new MotdManager(config.motd);
 const messagesManager = new MessagesManager(LOCAL_DB_PATH);
 const socketManager = new SocketManager(io, logger);
-const taskScheduler = new TaskScheduler(logger);
+const taskManager = new TaskManager(logger);
 const commandHandler = new CommandHandler(logger);
 
-const actions = new Actions(logger, motdManager, messagesManager, socketManager, taskScheduler, server, config);
+const actions = new Actions(logger, motdManager, messagesManager, socketManager, taskManager, server, config);
 
 
-/* ------------------- TaskScheduler Setup ------------------------*/
+/* ------------------- TaskManager Setup ------------------------*/
 
 
 // Delete old messages task
-taskScheduler.addOrUpdateTask("deleteOldMessages", 
+taskManager.addOrUpdateTask("deleteOldMessages", 
                               `*/${config.deleteOldMessagesTask.taskRate} * * * *`, 
                               actions.deleteOldMessages.bind(actions), 
                               [config.deleteOldMessagesTask.ageForDelete], 

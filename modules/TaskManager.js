@@ -1,6 +1,6 @@
 const schedule = require('node-schedule');
 
-class TaskScheduler {
+class TaskManager {
   constructor(logger) {
     this.logger = logger; // Logger pour les logs
     this.tasks = new Map(); // Stocke les tâches actives par nom
@@ -78,4 +78,4 @@ class TaskScheduler {
   }
 }
 
-module.exports = TaskScheduler;
+module.exports = TaskManager;
