@@ -1,0 +1,14 @@
+Déterminer s'il faut d'autres tasks
+- Logger le nm d'user et de messages toutes les minutes
+
+Commprendre et faire un système pour empecher le spam
+
+Faire commande pou effacer les messages admin
+
+
+Long terme :
+Pouvoir donner des arguments en commande avec plusieurs espaces
+Trouver un moyen de faire différentes routes de manière propre
+Faire commande pour effacer les messages admin
+
+    

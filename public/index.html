@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Room</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+
+      
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    #chat-container {
+      margin: 50px auto;
+      width: 80%;
+      max-width: 1000px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #messages {
+      list-style-type: none;
+      padding: 0;
+      margin: 0 0 20px;
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      padding: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing : -1px;
+      word-spacing : -3px;
+    }
+    #messages li {
+      margin-bottom: 10px;
+      word-wrap: break-word; /* Permet de couper les mots longs */
+      overflow-wrap: break-word; /* Alternative moderne */
+    }
+    #messages li .admin {
+      color: #be0000;
+    }
+    #messages li .date {
+      font-size: 13px;
+    } 
+    #messages li .username {
+      font-weight: bold;
+    } 
+    #message-input {
+      display: flex;
+    }
+    #username {
+      width: 25%; /* Le champ de nom d'utilisateur sera plus petit */
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px 0 0 5px;
+    }
+    #message {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 0;
+    }
+    #send-btn {
+      border: none;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+    #motd {
+      font-weight: normal;
+    }
+
+
+
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <h1>The Room</h1> 
+    <h3 id="motd"></h3>  
+    <ul id="messages"></ul>
+    <div id="message-input">
+      <input id="username" type="text" placeholder="Who are you ?" value="Anon">
+      <input id="message" type="text" placeholder="What do you have to say ?">
+      <button id="send-btn">Envoyer</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

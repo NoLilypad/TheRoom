@@ -1,0 +1,36 @@
+serverPort: 80
+dbFilePath: 'db.json'
+publicFolderPath: 'public'
+motd: "This is a MOTD!"
+
+deleteOldMessagesTask:
+  deleteOldMessages: false # if enabled by default
+  ageForDelete: 3600 # 1 hour in seconds
+  taskRate: 1 # in minutes
+
+
+
+logger:
+  logUserConnection: false
+  prefixes:
+    userConnection: '[TheRoom - USC]'
+    command:        '[TheRoom - CMD]'
+    server:         '[TheRoom - SRV]'
+    error:          '[TheRoom - ERR]'
+    task:           '[TheRoom - TSK]'
+
+help:
+  consoleHelp: "List of available commands : \n
+         * clear        : clear messages \n
+         * yuc          : activate user connection console logging \n
+         * nuc          : deactivate user connection console logging \n
+         * delold [age] : deletez messages older than [age] in seconds \n
+         * cm [motd]    : changes message of the day \n
+         * tasks        : displays list of server tasks \n
+         * edomt        : enable deleteOldMessages task \n
+         * ddmt         : disable deleteOldMessages task \n
+         * info         : displays server infos \n
+         * help         : displays available commands \n
+         * edomt        : enables delete old messages task \n
+         * ddomt        : disables delete old message task \n
+         * dump         : dumps messages "
