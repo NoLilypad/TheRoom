@@ -5,6 +5,8 @@ const http            = require('http');
 const socketIo        = require('socket.io');
 const fs              = require('fs');
 const YAML            = require('yaml');
+const path            = require('path');
+const session         = require('express-session');
 
 const MessagesManager = require('./modules/MessagesManager.js');
 const Logger          = require('./modules/Logger.js');
@@ -22,13 +24,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+
 /* --------------------- Variables Setup -------------------------*/
 
 // YAML Configuration loading
 const config = YAML.parse(fs.readFileSync('./config.yaml','utf8')); 
             
 const LOCAL_DB_PATH = config.dbFilePath;           
-const PUBLIC_FOLDER_PATH = config.publicFolderPath;
+const PUBLIC_FOLDER_PATH = path.join(__dirname, config.publicFolderPath); 
 const SERVER_PORT = config.serverPort;
 
 
@@ -50,13 +53,69 @@ const actions = new Actions(logger, motdManager, messagesManager, socketManager,
 
 
 socketManager.handleConnections(messagesManager, motdManager);
-
 commandHandler.handleCommands(actions);
-
 taskScheduler.scheduleTasks(taskManager, config.tasks, actions);
 
-// Serves files from public folder
-app.use('/', express.static(PUBLIC_FOLDER_PATH));
+/* ---------------------- Middleware execution ---------------------------*/
+
+// Créer une Map pour suivre les utilisateurs actifs
+const activeUsers = new Map(); // Format: { username: sessionId }
+
+app.use(express.urlencoded({ extended: true })); 
+
+// Configuration de la session
+const sessionStore = new session.MemoryStore(); 
+const sessionMiddleware = session({
+    secret: 'votre_secret_hyper_securise',
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore, // Stockage en mémoire (à remplacer par Redis en production)
+    cookie: { 
+        maxAge: 24 * 60 * 60 * 1000 // 24h
+    }
+});
+app.use(sessionMiddleware);
+
+
+// Route GET pour la page de login
+app.get('/', (req, res) => {
+    // Redirige vers /chat si la session avec username existe
+    if (req.session.username) {
+        res.redirect('/chat');
+    } 
+    // Sinon ouvre la page login.html
+    else {
+        res.sendFile(path.join(PUBLIC_FOLDER_PATH, 'login.html'));
+    }
+});
+
+
+// Route POST pour traiter le login
+app.post('/login', (req, res) => {
+    // Créé l'username à partir du résultat du forms et vérifie qu'il est non vide
+    const username = req.body.username.trim();
+    if (!username) {
+        return res.redirect('/?error=Nom d\'utilisateur requis');
+    }
+    
+    // Rediriger vers / si le nom est déjà utilisé
+    if (activeUsers.has(username)) {
+        return res.redirect('/');
+    } 
+    
+    req.session.username = username;
+    activeUsers.set(username, req.session.id);
+    res.redirect('/chat');
+});
+
+
+// Route pour le chat
+app.use('/chat', express.static(PUBLIC_FOLDER_PATH));
+
+
+
+
+/* ---------------------- Server start ---------------------------*/
 
 // Starts server 
 server.listen(SERVER_PORT, () => {
