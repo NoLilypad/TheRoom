@@ -160,5 +160,17 @@
     "text": "\"-prompt(8)-\"",
     "timestamp": 1739460154191,
     "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<script\\x20type=\"text/javascript\">javascript:alert(1);</script>",
+    "timestamp": 1739465732527,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img src/onerror=prompt(8)>",
+    "timestamp": 1739465744257,
+    "flag": 0
   }
 ]

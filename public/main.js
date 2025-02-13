@@ -16,6 +16,17 @@ const messageTypes = {0: "none", 1:"admin"};
 
 /* --------------------- Functions setup -------------------------*/
 
+// Escapes special characters in html
+function escapeHtml(unsafeText) {
+  return unsafeText
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
 // Sends message to server
 function sendMessage(){
   const user = usernameInput.value.trim();
@@ -36,10 +47,10 @@ function addMessage(message) {
   li.innerHTML = `
   <span class="${messageTypes[message.flag]}">
     <span class="meta">
-      <span class="date">${date}</span> - 
-      <span class="username">${message.user}</span>:
+      <span class="date">${escapeHtml(date)}</span> - 
+      <span class="username">${escapeHtml(message.user)}</span>:
     </span>
-    <span class="text">${message.text}</span>
+    <span class="text">${escapeHtml(message.text)}</span>
   </span>
   `;
   messagesList.appendChild(li); 
