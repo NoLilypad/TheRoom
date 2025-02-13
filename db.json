@@ -1,92 +1,164 @@
 [
   {
     "user": "Anon",
-    "text": "Chat",
-    "timestamp": 1737571054255,
+    "text": "a",
+    "timestamp": 1739459133444,
     "flag": 0
   },
   {
     "user": "Anon",
-    "text": "Chat is this cool",
-    "timestamp": 1737571062570,
-    "flag": 0
-  },
-  {
-    "user": "Anon",
-    "text": "Or not",
-    "timestamp": 1737571064113,
-    "flag": 0
-  },
-  {
-    "user": "Anon",
-    "text": "Noice",
-    "timestamp": 1737571072334,
-    "flag": 0
-  },
-  {
-    "user": "Anon",
-    "text": "or what",
-    "timestamp": 1737571074149,
-    "flag": 0
-  },
-  {
-    "user": "Anon",
-    "text": "for drips",
-    "timestamp": 1737571077045,
-    "flag": 0
-  },
-  {
-    "user": "Anon",
-    "text": "HIHI",
-    "timestamp": 1737571081687,
-    "flag": 0
-  },
-  {
-    "user": "Admin",
     "text": "b",
-    "timestamp": 1737571133526,
-    "flag": 1
-  },
-  {
-    "user": "Anon",
-    "text": "aaa",
-    "timestamp": 1737571219490,
+    "timestamp": 1739459134369,
     "flag": 0
   },
   {
     "user": "Anon",
-    "text": "v",
-    "timestamp": 1737571290863,
+    "text": "c",
+    "timestamp": 1739459134614,
     "flag": 0
   },
   {
+    "user": "Anon",
     "text": "a",
-    "timestamp": 1739396078137,
+    "timestamp": 1739459252518,
     "flag": 0
   },
   {
-    "text": "a",
-    "timestamp": 1739396078150,
+    "user": "Anon",
+    "text": "a, null",
+    "timestamp": 1739459454473,
     "flag": 0
   },
   {
-    "text": "a",
-    "timestamp": 1739396078150,
+    "user": "Anon",
+    "text": "a\" --a",
+    "timestamp": 1739459460248,
     "flag": 0
   },
   {
-    "text": "a",
-    "timestamp": 1739396078357,
+    "user": "Anon",
+    "text": "<alert 1/>",
+    "timestamp": 1739459472879,
     "flag": 0
   },
   {
-    "text": "v",
-    "timestamp": 1739396081236,
+    "user": "Anon",
+    "text": "<h1 bjr/>",
+    "timestamp": 1739459491565,
     "flag": 0
   },
   {
-    "text": "b",
-    "timestamp": 1739396082140,
+    "user": "Anon",
+    "text": "<h1 bjr>",
+    "timestamp": 1739459543926,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<alert 1>",
+    "timestamp": 1739459549933,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<alert>",
+    "timestamp": 1739459567122,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png >",
+    "timestamp": 1739459589004,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href =https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png>",
+    "timestamp": 1739459604565,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\">",
+    "timestamp": 1739459625480,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\"/>",
+    "timestamp": 1739459636153,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\"/>",
+    "timestamp": 1739459659459,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\"/img>",
+    "timestamp": 1739459686554,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img> href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\"</img>",
+    "timestamp": 1739459699449,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png\"",
+    "timestamp": 1739459722562,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "</span> <alert 1> <span>",
+    "timestamp": 1739459755695,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<alert(\"caca\")>",
+    "timestamp": 1739459872947,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<script> alert(\"caca\") </alert>",
+    "timestamp": 1739459999660,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<script> alert(1) </script>",
+    "timestamp": 1739460020063,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<script> alert(\"cca\") </script>",
+    "timestamp": 1739460030583,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img href=\"bfiudsfds\" onerror=alert(\"caca\") />",
+    "timestamp": 1739460072609,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "<img/src/onerror=prompt(8)>",
+    "timestamp": 1739460139922,
+    "flag": 0
+  },
+  {
+    "user": "Anon",
+    "text": "\"-prompt(8)-\"",
+    "timestamp": 1739460154191,
     "flag": 0
   }
 ]

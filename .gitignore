@@ -59,3 +59,6 @@ coverage/
 # Optional: Temporary files
 tmp/
 temp/
+
+# DB
+db.json
