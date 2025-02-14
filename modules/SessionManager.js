@@ -17,7 +17,6 @@ class SessionManager{
     }
 
     manageSessions(){
-        this.logger.error("Session manager launched");
 
         this.io.use((socket, next) => {
             this.sessionMiddleware(socket.request, {}, next);

@@ -48,7 +48,7 @@ const taskManager = new TaskManager(logger);
 const taskScheduler = new TaskScheduler(logger);
 const commandHandler = new CommandHandler(logger);
 
-const actions = new Actions(logger, motdManager, messagesManager, socketManager, taskManager, server, config);
+const actions = new Actions(logger, motdManager, messagesManager, socketManager, sessionManager, taskManager, server, config);
 
 
 /* ---------------------- App execution ---------------------------*/
