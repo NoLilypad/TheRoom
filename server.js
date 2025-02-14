@@ -12,6 +12,7 @@ const MessagesManager = require('./modules/MessagesManager.js');
 const Logger          = require('./modules/Logger.js');
 const MotdManager     = require('./modules/MotdManager.js');
 const SocketManager   = require('./modules/SocketManager.js');
+const SessionManager  = require('./modules/SessionManager.js');
 const TaskManager     = require('./modules/TaskManager.js');
 const TaskScheduler   = require('./modules/TaskScheduler.js')
 const CommandHandler  = require('./modules/CommandHandler.js');
@@ -42,6 +43,7 @@ const logger = new Logger(config.logger.prefixes, config.logger.logUserConnectio
 const motdManager = new MotdManager(config.motd);
 const messagesManager = new MessagesManager(LOCAL_DB_PATH);
 const socketManager = new SocketManager(io, logger);
+const sessionManager = new SessionManager(io, session, logger);
 const taskManager = new TaskManager(logger);
 const taskScheduler = new TaskScheduler(logger);
 const commandHandler = new CommandHandler(logger);
@@ -56,25 +58,13 @@ socketManager.handleConnections(messagesManager, motdManager);
 commandHandler.handleCommands(actions);
 taskScheduler.scheduleTasks(taskManager, config.tasks, actions);
 
-/* ---------------------- Middleware execution ---------------------------*/
+sessionManager.manageSessions();
 
-// Créer une Map pour suivre les utilisateurs actifs
-const activeUsers = new Map(); // Format: { username: sessionId }
+/* ---------------------- Middleware execution ---------------------------*/
 
 app.use(express.urlencoded({ extended: true })); 
 
-// Configuration de la session
-const sessionStore = new session.MemoryStore(); 
-const sessionMiddleware = session({
-    secret: 'votre_secret_hyper_securise',
-    resave: false,
-    saveUninitialized: false,
-    store: sessionStore, // Stockage en mémoire (à remplacer par Redis en production)
-    cookie: { 
-        maxAge: 24 * 60 * 60 * 1000 // 24h
-    }
-});
-app.use(sessionMiddleware);
+app.use(sessionManager.sessionMiddleware);
 
 
 // Route GET pour la page de login
@@ -99,19 +89,15 @@ app.post('/login', (req, res) => {
     }
     
     // Rediriger vers / si le nom est déjà utilisé
-    if (activeUsers.has(username)) {
+    if (sessionManager.activeUsers.has(username)) {
         return res.redirect('/');
     } 
     
     req.session.username = username;
-    activeUsers.set(username, req.session.id);
+    sessionManager.activeUsers.set(username, req.session.id);
     res.redirect('/chat');
 });
 
-/*
-// Route pour le chat
-app.use('/chat', express.static(PUBLIC_FOLDER_PATH));
-*/
 
 // Route protégée pour le chat
 app.get('/chat', (req, res) => {
@@ -121,34 +107,9 @@ app.get('/chat', (req, res) => {
         res.sendFile(path.join(PUBLIC_FOLDER_PATH, 'index.html'));
     }
 });
+
 // Servir les fichiers statiques du dossier public
 app.use('/', express.static(PUBLIC_FOLDER_PATH));
-
-// Partager le middleware de session avec Socket.io
-io.use((socket, next) => {
-    sessionMiddleware(socket.request, {}, next);
-});
-// Dans server.js
-io.on('connection', (socket) => {
-    const username = socket.request.session?.username;
-    
-    // Ajouter à activeUsers (déjà fait dans /login)
-    
-    socket.on('disconnect', () => {
-        setTimeout(() => {
-            // Vérifier si l'utilisateur a d'autres sockets actifs
-            const hasOtherSockets = Array.from(io.sockets.sockets).some(
-                ([id, s]) => s.request.session?.username === username
-            );
-            
-            if (!hasOtherSockets) {
-                activeUsers.delete(username);
-                sessionStore.destroy(socket.request.session?.id);
-            }
-        }, 5000);
-    });
-});
-
 
 
 
