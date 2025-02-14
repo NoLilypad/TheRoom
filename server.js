@@ -108,10 +108,21 @@ app.post('/login', (req, res) => {
     res.redirect('/chat');
 });
 
-
+/*
 // Route pour le chat
 app.use('/chat', express.static(PUBLIC_FOLDER_PATH));
+*/
 
+// Route protégée pour le chat
+app.get('/chat', (req, res) => {
+    if (!req.session.username) {
+        res.redirect('/');
+    } else {
+        res.sendFile(path.join(PUBLIC_FOLDER_PATH, 'index.html'));
+    }
+});
+// Servir les fichiers statiques du dossier public
+app.use('/', express.static(PUBLIC_FOLDER_PATH));
 
 // Partager le middleware de session avec Socket.io
 io.use((socket, next) => {
