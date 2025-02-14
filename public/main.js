@@ -8,7 +8,6 @@ const socket = io();
 const messagesList = document.getElementById('messages');
 const sendBtn = document.getElementById('send-btn');
 const messageInput = document.getElementById('message');
-const usernameInput = document.getElementById('username');
 const motd = document.getElementById('motd');
 
 const messageTypes = {0: "none", 1:"admin"};
@@ -29,11 +28,10 @@ function escapeHtml(unsafeText) {
 
 // Sends message to server
 function sendMessage(){
-  const user = usernameInput.value.trim();
   const text = messageInput.value.trim();
   // Checks for non-null username and message
-  if (user && text) {
-    socket.emit('client to serv message', { user, text });
+  if (text) {
+    socket.emit('client to serv message', {text });
     messageInput.value = '';
   } 
 }

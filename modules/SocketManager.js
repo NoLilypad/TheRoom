@@ -54,12 +54,14 @@ class SocketManager {
                     socket.disconnect();
                     return;
                 }
+
                 // Adds new message to messages stack
                 const newMessage = messagesManager.addMessage({
                     user: username,
                     text: msg.text,
                     flag: msg.flag || 0
                 }); 
+                
                 // Broadcasts message to all clients
                 this.broadcastMessage(newMessage);
             });
