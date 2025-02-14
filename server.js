@@ -113,6 +113,32 @@ app.post('/login', (req, res) => {
 app.use('/chat', express.static(PUBLIC_FOLDER_PATH));
 
 
+// Partager le middleware de session avec Socket.io
+io.use((socket, next) => {
+    sessionMiddleware(socket.request, {}, next);
+});
+// Dans server.js
+io.on('connection', (socket) => {
+    const username = socket.request.session?.username;
+    
+    // Ajouter à activeUsers (déjà fait dans /login)
+    
+    socket.on('disconnect', () => {
+        setTimeout(() => {
+            // Vérifier si l'utilisateur a d'autres sockets actifs
+            const hasOtherSockets = Array.from(io.sockets.sockets).some(
+                ([id, s]) => s.request.session?.username === username
+            );
+            
+            if (!hasOtherSockets) {
+                activeUsers.delete(username);
+                sessionStore.destroy(socket.request.session?.id);
+            }
+        }, 5000);
+    });
+});
+
+
 
 
 /* ---------------------- Server start ---------------------------*/
