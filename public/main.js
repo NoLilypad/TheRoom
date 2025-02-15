@@ -8,13 +8,17 @@ const socket = io();
 const messagesList = document.getElementById('messages');
 const sendBtn = document.getElementById('send-btn');
 const messageInput = document.getElementById('message');
-const usernameInput = document.getElementById('username');
 const motd = document.getElementById('motd');
 
 const messageTypes = {0: "none", 1:"admin"};
 
 
 /* --------------------- Functions setup -------------------------*/
+
+function isAtBottom() {
+  const threshold = 40; // Marge d'erreur en pixels
+  return messagesList.scrollTop + messagesList.clientHeight >= messagesList.scrollHeight - threshold;
+}
 
 // Escapes special characters in html
 function escapeHtml(unsafeText) {
@@ -29,11 +33,10 @@ function escapeHtml(unsafeText) {
 
 // Sends message to server
 function sendMessage(){
-  const user = usernameInput.value.trim();
   const text = messageInput.value.trim();
   // Checks for non-null username and message
-  if (user && text) {
-    socket.emit('client to serv message', { user, text });
+  if (text) {
+    socket.emit('client to serv message', {text });
     messageInput.value = '';
   } 
 }
@@ -53,9 +56,13 @@ function addMessage(message) {
     <span class="text">${escapeHtml(message.text)}</span>
   </span>
   `;
+
+  const wasAtBottom = isAtBottom(); // Vérification avant ajout
   messagesList.appendChild(li); 
   // Scrolls the list
-  messagesList.scrollTop = messagesList.scrollHeight;
+  if (wasAtBottom) {
+    messagesList.scrollTop = messagesList.scrollHeight; // Scroll si nécessaire
+  }
 }   
 
 // Clears page's chat
@@ -74,6 +81,7 @@ function clearMessages() {
 socket.on('message stack broadcast', (messages) => {
   clearMessages();
   messages.forEach(addMessage);
+  messagesList.scrollTop = messagesList.scrollHeight; // Scroll vers le bas
 });
 
 // When receiving one new message

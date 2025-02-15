@@ -1,10 +1,11 @@
 class Actions{
 
-   constructor(logger, motdManager, messagesManager, socketManager, taskScheduler, server, config){
+   constructor(logger, motdManager, messagesManager, socketManager, sessionManager, taskScheduler, server, config){
       this.logger = logger;
       this.motdManager = motdManager;
       this.messagesManager = messagesManager;
       this.socketManager = socketManager;
+      this.sessionManager = sessionManager;
       this.taskScheduler = taskScheduler; 
       this.server = server;
       this.config = config;
@@ -108,12 +109,14 @@ class Actions{
       const uptimeSeconds = process.uptime();
       const uptimeFormated = new Date(uptimeSeconds * 1000).toISOString().substr(11, 8);
       const nbConnected = this.socketManager.getNbConnected();
+      const nbSessions = this.sessionManager.activeUsers.size;
 
       return `Server infos : 
-         Current motd              : ${currentMotd}
-         Number of messages        : ${nbMessages}
-         Number of connected users : ${nbConnected}
-         Server uptime             : ${uptimeFormated}`;
+         Current motd                 : ${currentMotd}
+         Number of messages           : ${nbMessages}
+         Number of connected sockets  : ${nbConnected}
+         Number of connected sessions : ${nbSessions}
+         Server uptime                : ${uptimeFormated}`;
    }
 
    getConsoleHelp(){
