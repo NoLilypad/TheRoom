@@ -30,6 +30,17 @@ function escapeHtml(unsafeText) {
     .replace(/'/g, "&#039;");
 }
 
+function linkify(text) {
+  const escapedText = escapeHtml(text); // Échappe d'abord le HTML
+  // Regex pour détecter les URLs (http/https/www.)
+  const urlRegex = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]|www\.[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  return escapedText.replace(urlRegex, (url) => {
+    let href = url;
+    if (!href.startsWith('http')) href = `http://${href}`; // Corrige les www. sans http
+    return `<a href="${href}" target="_blank" rel="noopener">${url}</a>`;
+  });
+}
+
 
 // Sends message to server
 function sendMessage(){
@@ -53,7 +64,7 @@ function addMessage(message) {
       <span class="date">${escapeHtml(date)}</span> - 
       <span class="username">${escapeHtml(message.user)}</span>:
     </span>
-    <span class="text">${escapeHtml(message.text)}</span>
+    <span class="text">${linkify(message.text)}</span>
   </span>
   `;
 
