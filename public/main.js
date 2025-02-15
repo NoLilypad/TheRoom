@@ -15,6 +15,11 @@ const messageTypes = {0: "none", 1:"admin"};
 
 /* --------------------- Functions setup -------------------------*/
 
+function isAtBottom() {
+  const threshold = 40; // Marge d'erreur en pixels
+  return messagesList.scrollTop + messagesList.clientHeight >= messagesList.scrollHeight - threshold;
+}
+
 // Escapes special characters in html
 function escapeHtml(unsafeText) {
   return unsafeText
@@ -51,9 +56,13 @@ function addMessage(message) {
     <span class="text">${escapeHtml(message.text)}</span>
   </span>
   `;
+
+  const wasAtBottom = isAtBottom(); // Vérification avant ajout
   messagesList.appendChild(li); 
   // Scrolls the list
-  messagesList.scrollTop = messagesList.scrollHeight;
+  if (wasAtBottom) {
+    messagesList.scrollTop = messagesList.scrollHeight; // Scroll si nécessaire
+  }
 }   
 
 // Clears page's chat
@@ -72,6 +81,7 @@ function clearMessages() {
 socket.on('message stack broadcast', (messages) => {
   clearMessages();
   messages.forEach(addMessage);
+  messagesList.scrollTop = messagesList.scrollHeight; // Scroll vers le bas
 });
 
 // When receiving one new message
