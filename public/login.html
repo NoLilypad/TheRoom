@@ -5,15 +5,16 @@
     <style>
         body { font-family: Arial; text-align: center; padding: 50px; }
         form { margin: 20px auto; width: 300px; }
-        input { padding: 10px; margin: 5px; width: 100%; }
+        input { padding: 10px; margin: 5px; width: 100%; border-radius: 5px 5px 5px 5px; background-color: #f8f9fa; }
     </style>
 </head>
 <body>
     <h1>Bienvenue dans The Room</h1>
   
     <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+        <input type="text" id="usernameInput" name="username" placeholder="Nom d'utilisateur" required>
         <button type="submit">Entrer</button>
     </form>
+    <script type="text/javascript">document.getElementById('usernameInput').focus()</script>
 </body>
 </html>

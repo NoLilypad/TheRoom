@@ -69,13 +69,27 @@ function addMessage(message) {
 function clearMessages() {
   messagesList.innerHTML = '';
 }
-
+ 
 
 
 
 /* ---------------------- Event handling ---------------------------*/
 
+window.onload = (event) => {
+  messageInput.focus();
+}
 
+// Après la connexion WebSocket (const socket = io();)
+socket.on("connect", () => {
+  // Demander l'username au serveur
+  socket.emit("get username");
+});
+
+// Réception de l'username
+socket.on("send username", (username) => {
+  const usernameInput = document.getElementById("username");
+  usernameInput.value = username; // Afficher l'username
+});
 
 // When receiveing whole message stack
 socket.on('message stack broadcast', (messages) => {

@@ -24,6 +24,9 @@ class SessionManager{
 
         this.io.on('connection', (socket) => {
             const username = socket.request.session?.username;
+
+            // Envoyer l'username au client
+            socket.emit("send username", username);
             
             // Ajouter à activeUsers (déjà fait dans /login)
             
