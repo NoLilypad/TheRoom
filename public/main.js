@@ -69,11 +69,15 @@ function addMessage(message) {
 function clearMessages() {
   messagesList.innerHTML = '';
 }
-
+ 
 
 
 
 /* ---------------------- Event handling ---------------------------*/
+
+window.onload = (event) => {
+  messageInput.focus();
+}
 
 // Après la connexion WebSocket (const socket = io();)
 socket.on("connect", () => {
