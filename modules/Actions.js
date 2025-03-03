@@ -107,7 +107,7 @@ class Actions{
       const currentMotd = this.motdManager.getMotd();
       const nbMessages = this.messagesManager.getNbMessages();
       const uptimeSeconds = process.uptime();
-      const uptimeFormated = new Date(uptimeSeconds * 1000).toISOString().substr(11, 8);
+      const uptimeFormated = `${Math.floor(uptimeSeconds / 86400)}j ${Math.floor(uptimeSeconds % 86400 / 3600)}h ${Math.floor(uptimeSeconds % 3600 / 60)}m ${Math.floor(uptimeSeconds % 60)}s`;;
       const nbConnected = this.socketManager.getNbConnected();
       const nbSessions = this.sessionManager.activeUsers.size;
 
