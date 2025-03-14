@@ -1,7 +1,45 @@
-## Versions
+# The Room
 
-### 1.0 
-Ancienne version avec l'username entré à chaque message.
+A lightweight, simple node.js web chatroom server. 
 
-### 2.0 
-Version en dev avec l'username entré en début d'utilisation avec session.
+## Installation
+
+You will need [node.js](https://nodejs.org/en/download) installed
+
+### 1. Clone the repo
+```sh
+git clone git@github.com:NoLilypad/TheRoom.git
+cd TheRoom
+```
+
+### 2. Install
+```sh
+npm install
+```
+
+### 3. Run the server
+```sh
+node server.js
+```
+
+## Versions 
+
+- v2.0 : Added sessions identifiyng  
+
+## Known issues
+- Absolutely no security, everything is stored in clear on the server !!!
+- No spam management
+
+
+## TODO
+
+### Short term
+- [ ] Manage spam 
+- [ ] Manage big messages
+
+### Long term
+- [ ] Command to erase admin messages
+- [ ] Manage multi space commands
+- [ ] Discord bot console
+
+
