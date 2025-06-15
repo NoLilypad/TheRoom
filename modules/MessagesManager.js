@@ -41,7 +41,7 @@ class MessagesManager{
 
 
     // Add new message to messages stack
-    addMessage(messageToAdd){        
+    addMessage(messageToAdd){     
         // Creates timestamp
         const timestamp = Date.now();
         // Formats message

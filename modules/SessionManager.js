@@ -25,9 +25,15 @@ class SessionManager{
         this.io.on('connection', (socket) => {
             const username = socket.request.session?.username;
 
-            // Envoyer l'username au client
-            socket.emit("send username", username);
-            
+            // Asserts username size
+            if (username.length > 50){
+                this.logger.error(`Username ${username} too long`);    
+                socket.emit('disconnect')
+            }
+            else{
+                // Envoyer l'username au client
+                socket.emit("send username", username);
+            }
             // Ajouter à activeUsers (déjà fait dans /login)
             
             socket.on('disconnect', () => {
